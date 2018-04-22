@@ -188,7 +188,4 @@ console.log(allDanishCars);
     document.getElementById("danishCars").innerHTML = printDanishCars(allDanishCars);
 
 
-/************************************************************************************
-    Task 4.1    Custom Challenge
-*************************************************************************************/
 
