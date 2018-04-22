@@ -7,17 +7,48 @@ function getRepositoryName(data) {
 	return data.name;
 }
 
+//Array of curriculum - use this array to filter list of all repos and show only the following one.
+const hyfCurriculum=['Project','HTML-CSS','Node.js','databases','JavaScript1','Git','CommandLine','curriculum','project-api','React','JavaScript2','JavaScript3'];
+console.log(repoList);
+
+
 /************************************************************************************
-    Task 4.5    Display modules being taught in HYF Curriculum 
+    Task 4.2    Display modules being taught in HYF Curriculum 
+*************************************************************************************/
+
+
+let thirdRepoName = repoList[2].name;
+console.log("1: Name of 3rd repository");
+console.log(thirdRepoName);
+document.getElementById("third-repo").innerHTML = thirdRepoName;
+
+
+/************************************************************************************
+    Task 4.3/4.4    Display modules being taught in HYF Curriculum 
 *************************************************************************************/
 
 const listAllReposName = repoList.map(getRepositoryName);
+console.log("2: List of names of all repos from JSON");
 console.log(listAllReposName);
-let thirdRepoName = repoList[2].name;
-  console.log("Name of 3rd repository");
-  console.log(thirdRepoName);
-  document.getElementById("third-repo").innerHTML = thirdRepoName;
+  
+  // Match and return for the active modules out of all repos
+  // https://stackoverflow.com/a/12433633
+  function getMatch(a, b) {
+    var matches = [];
 
+    for ( var i = 0; i < a.length; i++ ) {
+        for ( var e = 0; e < b.length; e++ ) {
+            if ( a[i] === b[e] ) matches.push( a[i] );
+        }
+    }
+    return matches;
+  }
+
+  const activeModules = getMatch(hyfCurriculum, listAllReposName);
+  console.log("3: Active Modules");
+  console.log(activeModules);
+
+  // Generate a list of active modules.
   function printAllRepos(data) {
     let output = "";
     output += '<div><ul class="list-group">';    
@@ -29,6 +60,23 @@ let thirdRepoName = repoList[2].name;
     return output;
   }
 
-  document.getElementById("allRepos").innerHTML = printAllRepos(listAllReposName);
-console.log("List of all repos");
-console.log(listAllReposName);
+  document.getElementById("allRepos").innerHTML = printAllRepos(activeModules);
+  
+
+/************************************************************************************
+    Task 4.6    Display HYF avatar (image) out of the json
+*************************************************************************************/
+
+
+let hyfAvatar = repoList[0].owner.avatar_url;
+  /*
+  let avatarHtml = document.getElementById("hyf-avatar");
+  let showAvatar = avatarHtml.style.display === 'block';
+  let hideAvatar = avatarHtml.style.display === 'none';
+  const getAvatar = function () {
+                      return  (hyfAvatar ? showAvatar : hideAvata)
+                    };
+  */
+document.getElementById("hyf-avatar").src = hyfAvatar;
+
+
