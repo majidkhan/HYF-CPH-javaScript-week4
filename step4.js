@@ -8,7 +8,7 @@ function getRepositoryName(data) {
 }
 
 //Array of curriculum - use this array to filter list of all repos and show only the following one.
-const hyfCurriculum=['Project','HTML-CSS','Node.js','databases','JavaScript1','Git','CommandLine','curriculum','project-api','React','JavaScript2','JavaScript3'];
+const hyfCurriculum = ['Project','HTML-CSS','Node.js','databases','JavaScript1','Git','CommandLine','curriculum','project-api','React','JavaScript2','JavaScript3'];
 console.log(repoList);
 
 
@@ -34,10 +34,10 @@ console.log(listAllReposName);
   // Match and return for the active modules out of all repos
   // https://stackoverflow.com/a/12433633
   function getMatch(a, b) {
-    var matches = [];
+    const matches = [];
 
-    for ( var i = 0; i < a.length; i++ ) {
-        for ( var e = 0; e < b.length; e++ ) {
+    for ( let i = 0; i < a.length; i++ ) {
+        for ( let e = 0; e < b.length; e++ ) {
             if ( a[i] === b[e] ) matches.push( a[i] );
         }
     }
@@ -66,6 +66,34 @@ console.log(listAllReposName);
 /************************************************************************************
     Task 4.5    Display modules being taught in HYF Curriculum 
 *************************************************************************************/
+
+// function to pass active modules and returnd the found item out of all repos
+function getActiveModuleArray (data) {
+    for(let i = 0; i < hyfCurriculum.length; i++) {
+        if(hyfCurriculum[i] === data.name) {
+            return hyfCurriculum[i] === data.name;
+        }
+    }
+}
+
+
+const activeModulesArray = repoList.filter(getActiveModuleArray);
+
+console.log("4: Active Modules Array");
+console.log(activeModulesArray);
+
+// render active modules info
+function printEachActiveModuleInfo (activeModulesArray) {
+    let output = "";
+    output += "<table class='table table-striped'>";
+    output += "<tr><th>Repository</th> <th>Stargazers</th> <th>Watchers</th> <th>Forks</th> <th>language</th></tr>";
+    activeModulesArray.forEach( function(item) {
+        output += "<tr><td>" + item.name + "</td><td>" + item.stargazers_count + "</td><td>" + item.watchers + "</td><td>" + item.forks + "</td><td>" + item.language + "</td></tr>";
+    });
+    return output += "</table>";
+}
+
+document.getElementById("eachRepoInfo").innerHTML = printEachActiveModuleInfo(activeModulesArray);
 
 
 /************************************************************************************
